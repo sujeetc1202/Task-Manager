@@ -4,8 +4,14 @@ const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find({});
     res.status(200).json({ tasks });
+    // response types
+    // res.status(200).json({ tasks, Total: tasks.length });
+    // res
+    //   .status(200)
+    //   .json({ status: "success", data: { tasks, Total: tasks.length } }); // setting up a flag
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.status(500).json({  msg:{error} });
+    // res.status(500).json({ status: "failed", msg:{error} });
   }
 };
 
@@ -62,6 +68,23 @@ const updateTask = async (req, res) => {
   }
 };
 
+// this os for finding the difference between PUT and PATCH
+// const editTask = async (req, res) => {
+//   try {
+//     const { id: taskID } = req.params;
+//     const task = await Task.findByIdAndUpdate({ _id: taskID }, req.body, {
+//       new: true,
+//       runValidators: true,
+//       overwrite: true,
+//     });
+//     if (!task) {
+//       return res.status(404).json({ msg: `No task with id :  ${taskID}` });
+//     }
+//     res.status(200).json({ id: taskID, data: req.body });
+//   } catch (error) {
+//     res.status(500).json({ msg: error });
+//   }
+// };
 
 module.exports = {
   getAllTasks,
@@ -69,4 +92,5 @@ module.exports = {
   getSingleTask,
   updateTask,
   deleteTask,
+  // editTask,
 };
