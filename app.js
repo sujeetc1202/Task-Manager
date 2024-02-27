@@ -6,7 +6,6 @@ require("dotenv").config();
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
-const port = 3000;
 
 // server
 app.use("/api/v1/tasks", tasks);
@@ -17,6 +16,7 @@ app.use(express.json());
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);
+const port = process.env.PORT || 3000;
 
 
 // app.get("/api/v1/tasks")  // get all the tasks
