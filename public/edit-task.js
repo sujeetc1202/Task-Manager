@@ -32,27 +32,29 @@ editFormDOM.addEventListener('submit', async (e) => {
   editBtnDOM.textContent = 'Loading...'
   e.preventDefault()
   try {
-    const taskName = taskNameDOM.value
-    const taskCompleted = taskCompletedDOM.checked
+    const taskName = taskNameDOM.value;
+    const taskCompleted = taskCompletedDOM.checked;
 
     const {
+      _id: taskID,
       data: { task },
     } = await axios.patch(`/api/v1/tasks/${id}`, {
       name: taskName,
       completed: taskCompleted,
-    })
+    });
 
-    const { _id: taskID, completed, name } = task
+    const { name, completed } = task;
+    console.log(name, completed);
 
-    taskIDDOM.textContent = taskID
-    taskNameDOM.value = name
-    tempName = name
+    taskIDDOM.textContent = taskID;
+    taskNameDOM.value = name;
+    tempName = name;
     if (completed) {
-      taskCompletedDOM.checked = true
+      taskCompletedDOM.checked = true;
     }
-    formAlertDOM.style.display = 'block'
-    formAlertDOM.textContent = `success, edited task`
-    formAlertDOM.classList.add('text-success')
+    formAlertDOM.style.display = "block";
+    formAlertDOM.textContent = `success, edited task`;
+    formAlertDOM.classList.add("text-success");
   } catch (error) {
     console.error(error)
     taskNameDOM.value = tempName
